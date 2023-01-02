@@ -1,8 +1,8 @@
 import SunCalc from "suncalc"
 import { GetTimesResult } from "suncalc"
 import { DateTime } from "luxon"
-import Period from "@/interfaces/Period"
-import { radians_to_degrees } from "@/helpers/General"
+import Period from "@app/interfaces/Period"
+import { radians_to_degrees } from "@app/helpers/General"
 
 export interface GetTimesResultLuxon {
     dawn: DateTime

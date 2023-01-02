@@ -1,3 +1,4 @@
+import { SuntimesModule } from '@app/modules/suntimes.module'
 import { HomeViewRoutingModule } from './home-view-routing.module'
 import { NgModule } from '@angular/core'
 
@@ -7,9 +8,12 @@ import { CommonModule } from '@angular/common'
 @NgModule({
   imports: [
     CommonModule,
-    HomeViewRoutingModule
+    HomeViewRoutingModule,
+    SuntimesModule
   ],
-  declarations: [HomeViewComponent]
+  declarations: [
+    HomeViewComponent,
+  ]
 })
 
 export class HomeViewModule { }

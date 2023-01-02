@@ -1,0 +1,71 @@
+<div class="suntimes__wrapper" [style]="styleForWrapper">
+    <div class="background background__current"></div>
+    <div class="background background__next"></div>
+    <div class="suntimes__header">
+        <h1>Suntimes</h1>
+        <div class="suntimes__header__buttons">
+            <button class="image-icon-wrapper location-settings__button btn"
+                [class]="{ 'btn--active': locationSettingsActive }" title="Location"
+                (click)="openModal(locationSettingsActive ? undefined : Modal.LocationSettings)">
+                <i class="fas fa-map-marker-alt"></i>
+            </button>
+            <button class="image-icon-wrapper general-settings__button btn"
+                [class]="{ 'btn--active': generalSettingsActive }"
+                (click)="openModal(generalSettingsActive ? undefined : Modal.GeneralSettings)">
+                <i class="fas fa-cog"></i>
+            </button>
+        </div>
+    </div>
+    <div class="suntimes__modals">
+        <div class="suntimes__modals__modal" [hidden]="!generalSettingsActive">
+            <!-- <GeneralSettings (close)="generalSettingsActive = false" /> -->
+        </div>
+        <div class="suntimes__modals__modal" [hidden]="!locationSettingsActive">
+            <!-- <LocationSettings :lng="lng" :lat="lat" @update:lng="lng = $event" @update:lat="lat = $event"
+                @geolocate="geolocate" /> -->
+        </div>
+    </div>
+    <div>
+        <span>Jelenlegi idő</span>
+        <span class="notranslate">{{ strftime("%Y.%m.%d. %H:%M:%S", now) }}</span>
+        <br />
+        <span>Napfelkelte:</span>
+        <span class="notranslate">{{
+            strftime("%H:%M:%S", sunTimes.sunrise)
+            }}</span>
+        <br />
+        <span>Naplemente:</span>
+        <span class="notranslate">{{
+            strftime("%H:%M:%S", sunTimes.sunset)
+            }}</span>
+        <br />
+        <span>Nap hossza:</span>
+        <span class="notranslate">{{
+            format_timespan(sunTimes.day_length)
+            }}</span>
+        <br />
+        <span>Altitude:</span>
+        <span class="notranslate">{{ sunPosition.altitude.toFixed(3) }} deg</span>
+        <br />
+        <span>Altitude rate:</span>
+        <span class="notranslate">{{ altituderate.toFixed(2) }} deg / 5min</span>
+        <br />
+        <span>Azimuth:</span>
+        <span class="notranslate">{{ sunPosition.azimuth.toFixed(3) }} deg</span>
+        <br />
+        <span>Százalék:</span>
+        <span class="notranslate">{{ percentage.toFixed(3) }} %</span>
+        <br />
+        <div class="progress sunpercentage">
+            <div class="determinate" [style]="{ width: percentage + '%' }"></div>
+        </div>
+        <!-- TODO -->
+        <!-- <TimeSelector v-model:time="now" @stop-tick="stopTick" @go-now="startTick" /> -->
+        <!-- <SunGraph :date="currentDayLuxon" :activePoint="minuteOfDay" :label-color="styleForWrapper['--foreground-sun']" /> -->
+
+        <div>
+            Sun data by:
+            <a href="https://www.npmjs.com/package/suncalc">https://www.npmjs.com/package/suncalc</a>
+        </div>
+    </div>
+</div>
