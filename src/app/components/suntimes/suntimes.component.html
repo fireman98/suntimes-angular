@@ -60,7 +60,7 @@
             <div class="determinate" [style]="{ width: percentage + '%' }"></div>
         </div>
         <!-- TODO -->
-        <!-- <TimeSelector v-model:time="now" @stop-tick="stopTick" @go-now="startTick" /> -->
+        <time-selector [(time)]="now" (stopTick)="stopTick()" (goNow)="startTick()"></time-selector>
         <!-- <SunGraph :date="currentDayLuxon" :activePoint="minuteOfDay" :label-color="styleForWrapper['--foreground-sun']" /> -->
 
         <div>

@@ -1,0 +1,19 @@
+<div class="time-selector">
+    <div class="mui-select time-selector__period-select">
+        <select [(ngModel)]="activePeriod">
+            <option *ngFor="let period of periods" [ngValue]="period">{{period.label}}</option>
+        </select>
+    </div>
+    <button class="image-icon-wrapper time-selector__button" (click)="goLeft">
+        <i class="fas fa-chevron-left"></i>
+    </button>
+    <button class="image-icon-wrapper time-selector__button" (click)="goRight">
+        <i class="fas fa-chevron-right"></i>
+    </button>
+    <input class="time-selector__range" type="range" [(ngModel)]="rangeValue" [min]="rangeMin" [max]="
+        rangeMax
+      " />
+    <button class="image-icon-wrapper time-selector__button" title="Go to current time" (click)="goNow.emit()">
+        <i class="fas fa-history"></i>
+    </button>
+</div>
