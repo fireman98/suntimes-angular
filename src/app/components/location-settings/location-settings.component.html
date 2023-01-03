@@ -1,0 +1,22 @@
+<div class="position-wrapper">
+    <div class="mui-textfield">
+        <input id="suntimes-address-input" type="text" [(ngModel)]="address" placeholder="Enter a city"
+            (keydown.enter)="geocodeAndSave()" />
+        <label for="suntimes-address-input">Address</label>
+        <div class="position__addressDisplay">
+            {{addressDisplay}}
+        </div>
+    </div>
+    <div class="mui-divider"></div>
+    <div class="mui-textfield">
+        <input id="suntimes-latitude-input" type="number" [(ngModel)]="Lat" step="any" />
+        <label for="suntimes-latitude-input">Latitude</label>
+    </div>
+    <div class="mui-textfield">
+        <input id="suntimes-longitude-input" type="number" [(ngModel)]="Lng" step="any" />
+        <label for="suntimes-longitude-input">Longitude</label>
+    </div>
+    <button type="button" class="mui-btn mui-btn--primary" (click)="geolocate.emit()">
+        Geolocate
+    </button>
+</div>

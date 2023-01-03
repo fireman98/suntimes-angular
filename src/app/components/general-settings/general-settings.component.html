@@ -1,1 +1,17 @@
-<p>general-settings works!</p>
+<div class="position-wrapper">
+    <div class="mui-checkbox">
+        <label>
+            <input type="checkbox" [(ngModel)]="useSkyEffect">
+            SkyEffect background
+        </label>
+    </div>
+    <button type="button" class="mui-btn mui-btn--secondary" (click)="resetDefaults">
+        Reset defaults
+    </button>
+    <button type="button" class="mui-btn mui-btn--secondary" (click)="load">
+        Cancel
+    </button>
+    <button type="button" class="mui-btn mui-btn--primary" (click)="save">
+        Save
+    </button>
+</div>

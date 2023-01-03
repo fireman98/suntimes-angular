@@ -18,11 +18,11 @@
     </div>
     <div class="suntimes__modals">
         <div class="suntimes__modals__modal" [hidden]="!generalSettingsActive">
-            <!-- <GeneralSettings (close)="generalSettingsActive = false" /> -->
+            <general-settings (close)="generalSettingsActive = false"></general-settings>
         </div>
         <div class="suntimes__modals__modal" [hidden]="!locationSettingsActive">
-            <!-- <LocationSettings :lng="lng" :lat="lat" @update:lng="lng = $event" @update:lat="lat = $event"
-                @geolocate="geolocate" /> -->
+            <location-settings [lng]="lng" [lat]="lat" [(lng)]="lng" [(lat)]="lat"
+                (geolocate)="geolocate()"></location-settings>
         </div>
     </div>
     <div>
