@@ -1,0 +1,19 @@
+<nav class="sidebar-wrapper">
+    <div class="sidebar" [class]="{ 'active': active }">
+        <div>
+            <ul>
+                <li *ngFor="let link of routes" (click)="sidebaroff.emit()">
+                    <a [routerLink]="[link.path]" active-class="active">{{
+                        getTitle(link)
+                        }}</a>
+                </li>
+                <li *ngFor="let link of additional_routes">
+                    <a [href]="link.path">{{ link.name }}</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <!-- <transition name="fade"> -->
+    <div class="overlay" [hidden]="!active" (click)="sidebaroff.emit()"></div>
+    <!-- </transition> -->
+</nav>

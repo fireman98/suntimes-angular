@@ -1,0 +1,15 @@
+<header class="header" [class]="{'hidden':hidden, 'ontop': ontop}">
+    <div class="container">
+        <div class="companyName">
+            <a [routerLink]="['/']">
+                Kezdőlap
+            </a>
+        </div>
+        <div class="links">
+            <button class="image-icon-wrapper" aria-label="Oldalmenü megnyitása" title="Oldalmenü"
+                (click)="sidebaron.emit()">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </div>
+</header>
