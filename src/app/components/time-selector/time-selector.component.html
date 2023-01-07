@@ -4,10 +4,10 @@
             <option *ngFor="let period of periods" [ngValue]="period">{{period.label}}</option>
         </select>
     </div>
-    <button class="image-icon-wrapper time-selector__button" (click)="goLeft">
+    <button class="image-icon-wrapper time-selector__button" (click)="goLeft()">
         <i class="fas fa-chevron-left"></i>
     </button>
-    <button class="image-icon-wrapper time-selector__button" (click)="goRight">
+    <button class="image-icon-wrapper time-selector__button" (click)="goRight()">
         <i class="fas fa-chevron-right"></i>
     </button>
     <input class="time-selector__range" type="range" [(ngModel)]="rangeValue" [min]="rangeMin" [max]="

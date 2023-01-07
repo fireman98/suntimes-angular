@@ -144,7 +144,7 @@ export class TimeSelectorComponent implements OnInit {
   }
 
   goLeft () {
-    this.time = new Date(this._time.getTime() - this.activePeriod.step)
+    this._time = new Date(this._time.getTime() - this.activePeriod.step)
   }
 
   goRight () {
