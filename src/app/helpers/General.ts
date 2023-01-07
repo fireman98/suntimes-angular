@@ -13,7 +13,7 @@ export function formatTime (date: Date) {
 
 export function debounce<FunctionType extends (...args: any) =>
     any, ThisType> (fv: FunctionType, ms: number) {
-    let timeoutTask: number | undefined
+    let timeoutTask: NodeJS.Timeout | undefined
     let result: ReturnType<FunctionType>
     return function (this: ThisType, ...args: Parameters<FunctionType>) {
         // eslint-disable-next-line @typescript-eslint/no-this-alias

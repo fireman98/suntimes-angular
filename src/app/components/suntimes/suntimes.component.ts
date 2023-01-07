@@ -1,5 +1,5 @@
 import SunCalc from "suncalc"
-import { Component, OnInit, Output, EventEmitter } from '@angular/core'
+import { Component, OnInit, Output, EventEmitter, SimpleChange, SimpleChanges } from '@angular/core'
 import { DateTime } from "luxon"
 import { formatYearMonthDayToISO } from "@app/utils/LuxonUtility"
 import { SkyEffect } from '@app/classes/SkyEffect'
@@ -161,7 +161,13 @@ export class SuntimesComponent implements OnInit {
   get sunPositionRaw () {
     return SunCalc.getPosition(this.now, this.lat, this.lng)
   }
-  // TODO: sunPositionRaw Watch
+
+  watchSunPositionRaw (newVal: typeof this.sunPositionRaw) {
+    this.altituderate = radians_to_degrees(
+      ((newVal.altitude - this.lastaltitude) / this.tickInterval) * 60000 * 5
+    ) //one min
+    this.lastaltitude = newVal.altitude
+  }
 
   get sunPosition () {
     const _position = this.sunPositionRaw
@@ -172,7 +178,15 @@ export class SuntimesComponent implements OnInit {
     }
   }
 
-  // TODO: watchEffect skyEffect
+  get skyEffectUpdater () {
+    if (!this.useSkyEffect)
+      return
+
+    return {
+      altitude: Number(this.sunPosition.altitude),
+      direction: Boolean(this.percentage < 50)
+    }
+  }
 
   get backgroundColor () {
     if (!this.useSkyEffect)
@@ -198,14 +212,29 @@ export class SuntimesComponent implements OnInit {
     }
   }
 
-  // TODO: watch backgroundColor
-  // TODO: watch foregroundColor
+  watchBackgroundColor (newVal: typeof this.backgroundColor) {
+    this.styles.backgroundSunCurrent = newVal.current
+    this.styles.backgroundSunNext = newVal.next
+    this.styles.backgroundSunPrimary =
+      !this.useSkyEffect ? "white" : this.sunPosition.altitude > 10 ? "white" : "black"
+    this.styles.opacitySunNext = newVal.nextOpacity
+  }
+
+  watchForegroundColor (newVal: typeof this.foregroundColor) {
+    this.styles.foregroundSun = newVal
+  }
 
   /**
    * Tick clock
    */
   tick () {
     this.now = new Date()
+  }
+
+  watchNow (newVal: typeof this.now) {
+    if (this.year !== newVal.getFullYear()) this.year = newVal.getFullYear()
+    if (this.month !== newVal.getMonth()) this.month = newVal.getMonth()
+    if (this.day !== newVal.getDate()) this.day = newVal.getDate()
   }
 
   // Geolocate
@@ -215,6 +244,7 @@ export class SuntimesComponent implements OnInit {
       this.lng = position.coords.longitude
     })
   }
+
 
   //Start tick task
   startTick () {
@@ -228,6 +258,41 @@ export class SuntimesComponent implements OnInit {
     this.tickTask = undefined
   }
 
+  oldSunPositionRaw: typeof this.sunPositionRaw | undefined
+  oldBackgroundColor: typeof this.backgroundColor | undefined
+  oldForegroundColor: typeof this.foregroundColor | undefined
+  oldSkyEffectUpdater: typeof this.skyEffectUpdater | undefined
+  oldLng: typeof this.lng | undefined
+  oldLat: typeof this.lat | undefined
+
+  ngDoCheck () {
+    if (this.oldSunPositionRaw !== this.sunPositionRaw) {
+      this.watchSunPositionRaw(this.sunPositionRaw)
+    }
+    this.oldSunPositionRaw = this.sunPositionRaw
+
+    if (this.oldBackgroundColor !== this.backgroundColor) {
+      this.watchBackgroundColor(this.backgroundColor)
+    }
+    this.oldBackgroundColor = this.backgroundColor
+    if (this.oldForegroundColor !== this.foregroundColor) {
+      this.watchForegroundColor(this.foregroundColor)
+    }
+    this.oldForegroundColor = this.foregroundColor
+
+    if (this.oldSkyEffectUpdater !== this.skyEffectUpdater && this.skyEffectUpdater) {
+      this.skyEffect.altitude = this.skyEffectUpdater.altitude
+      this.skyEffect.direction = this.skyEffectUpdater.direction
+    }
+    this.oldSkyEffectUpdater = this.skyEffectUpdater
+
+    if (this.oldLng !== this.lng || this.oldLat !== this.lat) {
+      //TODO: settingsStore.saveToLocalStorage()
+    }
+    this.oldLng = this.lng
+    this.oldLat = this.lat
+
+  }
 
   ngOnInit (): void {
     this.startTick()
