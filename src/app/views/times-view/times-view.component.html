@@ -1,1 +1,7 @@
-<p>times-view works!</p>
+<div class="view__times">
+    <h1>Times - {{ monthName }}</h1>
+    <div class="view__times__times-table">
+        <times-parameters [(from)]="from" [(viewType)]="viewType"></times-parameters>
+        <times-table [from]="from" [to]="to" [viewType]="viewType"></times-table>
+    </div>
+</div>

@@ -1,0 +1,18 @@
+<div class="times-parameters">
+    <div class="mui-textfield date-input">
+        <input type="date" [(ngModel)]="fromAsISODate">
+        <button class="image-icon-wrapper time-selector__button" (click)="goLeft()">
+            <i class="fas fa-chevron-left"></i>
+        </button>
+        <button class="image-icon-wrapper time-selector__button" (click)="goRight()">
+            <i class="fas fa-chevron-right"></i>
+        </button>
+    </div>
+    <div class="mui-select">
+        <select [value]="viewType" (change)="updateViewType($event)">
+            <option *ngFor="let suntimesViewTypeValues of SuntimesViewTypeValues" [ngValue]="suntimesViewTypeValues">
+                {{ suntimesViewTypeValues }}
+            </option>
+        </select>
+    </div>
+</div>

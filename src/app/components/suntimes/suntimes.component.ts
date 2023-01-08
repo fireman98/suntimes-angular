@@ -132,7 +132,7 @@ export class SuntimesComponent implements OnInit {
       _sunset -= _sunrise
 
       return this._percentage = (_now / _sunset) * 100
-    }))
+    })).subscribe()
 
     const computeSunPositionRaw = ([now, lat, lng]: [ReturnType<typeof this.now.getValue>, ReturnType<typeof this.lat.getValue>, ReturnType<typeof this.lng.getValue>]) => {
       return SunCalc.getPosition(now, lat, lng)

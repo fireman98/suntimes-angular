@@ -1,0 +1,15 @@
+<table class="times-table mui-table mui-table--bordered">
+    <thead>
+        <tr>
+            <th *ngFor="let heading of _headings.value">
+                {{ heading }}
+            </th>
+            <th class="buttons-col"></th>
+        </tr>
+    </thead>
+    <tbody>
+        <!-- Use index for key, to avoid re-creating components on day change -->
+        <times-row *ngFor="let day of _days" [date]="day" [viewType]="viewType$.value" [headings]="_headings.value">
+        </times-row>
+    </tbody>
+</table>

@@ -7,19 +7,19 @@ import { SuntimesComponent } from '@app/components/suntimes/suntimes.component'
 import { GeneralSettingsComponent } from '@app/components/general-settings/general-settings.component'
 import { TimeSelectorComponent } from '@app/components/time-selector/time-selector.component'
 import { LocationSettingsComponent } from '@app/components/location-settings/location-settings.component'
-import { SunGraphComponent } from './../components/sun-graph/sun-graph.component'
+import { SungraphModule } from './sun-graph.module'
 
 @NgModule({
     imports: [
         CommonModule,
         FormsModule,
+        SungraphModule
     ],
     declarations: [
         SuntimesComponent,
         GeneralSettingsComponent,
         TimeSelectorComponent,
         LocationSettingsComponent,
-        SunGraphComponent
     ],
     exports: [
         SuntimesComponent

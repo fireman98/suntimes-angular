@@ -1,0 +1,14 @@
+<tr class="times-row">
+    <td *ngFor="let column of _columns.value">{{ column }}</td>
+    <td class="buttons-col">
+        <button class="mui-btn mui-btn--small mui-btn--primary" (click)="toggleIsOpened()">
+            <i class="fas fa-caret-down"></i>
+        </button>
+    </td>
+</tr>
+<tr [hidden]="!isOpened">
+    <td colspan="6">
+        <!-- TODO: Keepalive -->
+        <sun-graph *ngIf="isOpened" [date]="date" [animate]="false"></sun-graph>
+    </td>
+</tr>
