@@ -59,9 +59,9 @@
         <div class="progress sunpercentage">
             <div class="determinate" [style]="{ width: percentage + '%' }"></div>
         </div>
-        <!-- TODO -->
         <time-selector [(time)]="now" (stopTick)="stopTick()" (goNow)="startTick()"></time-selector>
-        <!-- <SunGraph :date="currentDayLuxon" :activePoint="minuteOfDay" :label-color="styleForWrapper['--foreground-sun']" /> -->
+        <sun-graph [date]="currentDayLuxon" [activePoint]="minuteOfDay"
+            [labelColor]="styleForWrapper['--foreground-sun']"></sun-graph>
 
         <div>
             Sun data by:

@@ -262,6 +262,7 @@ export class SuntimesComponent implements OnInit {
   oldBackgroundColor: typeof this.backgroundColor | undefined
   oldForegroundColor: typeof this.foregroundColor | undefined
   oldSkyEffectUpdater: typeof this.skyEffectUpdater | undefined
+  oldNow: typeof this.now | undefined
   oldLng: typeof this.lng | undefined
   oldLat: typeof this.lat | undefined
 
@@ -285,6 +286,11 @@ export class SuntimesComponent implements OnInit {
       this.skyEffect.direction = this.skyEffectUpdater.direction
     }
     this.oldSkyEffectUpdater = this.skyEffectUpdater
+
+    if (this.oldNow !== this.now) {
+      this.watchNow(this.now)
+    }
+    this.oldNow = this.now
 
     if (this.oldLng !== this.lng || this.oldLat !== this.lat) {
       //TODO: settingsStore.saveToLocalStorage()
