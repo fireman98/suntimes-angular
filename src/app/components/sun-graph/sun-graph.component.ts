@@ -15,13 +15,11 @@ Chart.register(LinearScale, LineController, CategoryScale, PointElement, LineEle
 export class SunGraphComponent implements OnInit {
 
   @Input() set date (date: DateTime) {
-    if (this.date$.value.valueOf() !== date.valueOf())
-      this.date$.next(date)
+    this.date$.next(date)
   }
   date$ = new BehaviorSubject<DateTime>(DateTime.now())
   @Input() set activePoint (activePoint: number) {
-    if (this.activePoint$.value !== activePoint)
-      this.activePoint$.next(activePoint)
+    this.activePoint$.next(activePoint)
   }
   activePoint$ = new BehaviorSubject<number>(0)
   @Input() set labelColor (labelColor: string) {
@@ -29,8 +27,7 @@ export class SunGraphComponent implements OnInit {
   }
   labelColor$ = new BehaviorSubject<string>("#ffffff")
   @Input() set animate (animate: boolean) {
-    if (this.animate$.value !== animate)
-      this.animate$.next(animate)
+    this.animate$.next(animate)
   }
   animate$ = new BehaviorSubject<boolean>(true)
 

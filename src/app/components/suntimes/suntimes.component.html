@@ -21,46 +21,47 @@
             <general-settings (close)="generalSettingsActive = false"></general-settings>
         </div>
         <div class="suntimes__modals__modal" [hidden]="!locationSettingsActive">
-            <location-settings [lng]="lng" [lat]="lat" [(lng)]="lng" [(lat)]="lat"
-                (geolocate)="geolocate()"></location-settings>
+            <location-settings [lng]="lng.value" [lat]="lat.value" (lngChange)="lng.next($event)"
+                (latChange)="lat.next($event)" (geolocate)="geolocate()"></location-settings>
         </div>
     </div>
     <div>
         <span>Jelenlegi idő</span>
-        <span class="notranslate">{{ strftime("%Y.%m.%d. %H:%M:%S", now) }}</span>
+        <span class="notranslate">{{ strftime("%Y.%m.%d. %H:%M:%S", now.value) }}</span>
         <br />
         <span>Napfelkelte:</span>
         <span class="notranslate">{{
-            strftime("%H:%M:%S", sunTimes.sunrise)
+            strftime("%H:%M:%S", _sunTimes.sunrise)
             }}</span>
         <br />
         <span>Naplemente:</span>
         <span class="notranslate">{{
-            strftime("%H:%M:%S", sunTimes.sunset)
+            strftime("%H:%M:%S", _sunTimes.sunset)
             }}</span>
         <br />
         <span>Nap hossza:</span>
         <span class="notranslate">{{
-            format_timespan(sunTimes.day_length)
+            format_timespan(_sunTimes.day_length)
             }}</span>
         <br />
         <span>Altitude:</span>
-        <span class="notranslate">{{ sunPosition.altitude.toFixed(3) }} deg</span>
+        <span class="notranslate">{{ _sunPosition.altitude.toFixed(3) }} deg</span>
         <br />
         <span>Altitude rate:</span>
         <span class="notranslate">{{ altituderate.toFixed(2) }} deg / 5min</span>
         <br />
         <span>Azimuth:</span>
-        <span class="notranslate">{{ sunPosition.azimuth.toFixed(3) }} deg</span>
+        <span class="notranslate">{{ _sunPosition.azimuth.toFixed(3) }} deg</span>
         <br />
         <span>Százalék:</span>
-        <span class="notranslate">{{ percentage.toFixed(3) }} %</span>
+        <span class="notranslate">{{ _percentage.toFixed(3) }} %</span>
         <br />
         <div class="progress sunpercentage">
-            <div class="determinate" [style]="{ width: percentage + '%' }"></div>
+            <div class="determinate" [style]="{ width: _percentage + '%' }"></div>
         </div>
-        <time-selector [(time)]="now" (stopTick)="stopTick()" (goNow)="startTick()"></time-selector>
-        <sun-graph [date]="currentDayLuxon" [activePoint]="minuteOfDay"
+        <time-selector [time]="now.value" (timeChange)="now.next($event)" (stopTick)="stopTick()"
+            (goNow)="startTick()"></time-selector>
+        <sun-graph [date]="_currentDayLuxon" [activePoint]="_minuteOfDay"
             [labelColor]="styleForWrapper['--foreground-sun']"></sun-graph>
 
         <div>
