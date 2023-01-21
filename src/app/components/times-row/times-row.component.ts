@@ -12,6 +12,8 @@ import ColumnsForHeadingsService from '@app/services/ColumnsForHeadingsService'
 export class TimesRowComponent implements OnInit {
 
   @Input() set date (date: DateTime) {
+    if (this.date$.value.valueOf() === date.valueOf())
+      return
     this.date$.next(date)
   }
   date$ = new BehaviorSubject(DateTime.now())
@@ -23,7 +25,7 @@ export class TimesRowComponent implements OnInit {
   }
   headings$ = new BehaviorSubject<Array<string>>([])
 
-  isOpened = true
+  isOpened = false
 
   toggleIsOpened () {
     this.isOpened = !this.isOpened

@@ -12,10 +12,14 @@ import HeadingsByViewTypeService from '@app/services/HeadingsByViewTypeService'
 export class TimesTableComponent implements OnInit {
 
   @Input() set from (from: DateTime) {
+    if (this.from$.value.valueOf() === from.valueOf())
+      return
     this.from$.next(from)
   }
   from$ = new BehaviorSubject(DateTime.now())
   @Input() set to (to: DateTime) {
+    if (this.to$.value.valueOf() === to.valueOf())
+      return
     this.to$.next(to)
   }
   to$ = new BehaviorSubject(DateTime.now())

@@ -1,7 +1,8 @@
 <div class="view__times">
-    <h1>Times - {{ monthName }}</h1>
+    <h1>Times - {{ _monthName }}</h1>
     <div class="view__times__times-table">
-        <times-parameters [(from)]="from" [(viewType)]="viewType"></times-parameters>
-        <times-table [from]="from" [to]="to" [viewType]="viewType"></times-table>
+        <times-parameters [from]="from.value" (fromChange)="from.next($event)"
+            [(viewType)]="viewType"></times-parameters>
+        <times-table [from]="from.value" [to]="_to" [viewType]="viewType"></times-table>
     </div>
 </div>

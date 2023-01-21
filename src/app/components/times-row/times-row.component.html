@@ -9,6 +9,6 @@
 <tr [hidden]="!isOpened">
     <td colspan="6">
         <!-- TODO: Keepalive -->
-        <sun-graph *ngIf="isOpened" [date]="date" [animate]="false"></sun-graph>
+        <sun-graph *ngIf="isOpened" [date]="date$.value" [animate]="false"></sun-graph>
     </td>
 </tr>

@@ -1,3 +1,4 @@
+import { BehaviorSubject, map } from 'rxjs'
 import { SuntimesViewType } from './../../interfaces/Suntimes'
 import { Component, OnInit } from '@angular/core'
 import { DateTime } from 'luxon'
@@ -9,18 +10,24 @@ import { DateTime } from 'luxon'
 })
 export class TimesViewComponent implements OnInit {
 
-  from = DateTime.now().startOf("month")
+  from = new BehaviorSubject(DateTime.now().startOf("month"))
   viewType = SuntimesViewType.SUN
 
-  get to () {
-    return this.from.endOf("month")
+  to = this.from.pipe(map((newVal => {
+    return newVal.endOf("month")
+  })))
+
+  monthName = this.from.pipe(map(newVal => {
+    return newVal.toFormat("LLLL")
+  }))
+
+  constructor() {
+    this.to.subscribe(newVal => this._to = newVal)
+    this.monthName.subscribe(newVal => this._monthName = newVal)
   }
 
-  get monthName () {
-    return this.from.toFormat("LLLL")
-  }
-
-  constructor() { }
+  _to: DateTime = this.from.value.endOf("month")
+  _monthName: string = this.from.value.toFormat("LLLL")
 
   ngOnInit (): void {
   }
