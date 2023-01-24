@@ -7,9 +7,6 @@
             <th class="buttons-col"></th>
         </tr>
     </thead>
-    <tbody>
-        <!-- Use index for key, to avoid re-creating components on day change -->
-        <times-row *ngFor="let day of _days" [date]="day" [viewType]="viewType$.value" [headings]="_headings.value">
-        </times-row>
+    <tbody times-row *ngFor="let day of _days" [date]="day" [viewType]="viewType$.value" [headings]="_headings.value">
     </tbody>
 </table>

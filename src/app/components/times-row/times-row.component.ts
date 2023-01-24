@@ -5,9 +5,10 @@ import { DateTime } from 'luxon'
 import ColumnsForHeadingsService from '@app/services/ColumnsForHeadingsService'
 
 @Component({
-  selector: 'times-row',
+  selector: '[times-row]',
   templateUrl: './times-row.component.html',
-  styleUrls: ['./times-row.component.scss']
+  styleUrls: ['./times-row.component.scss'],
+  host: { 'class': 'times-row' }
 })
 export class TimesRowComponent implements OnInit {
 

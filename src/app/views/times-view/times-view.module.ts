@@ -8,6 +8,7 @@ import { TimesViewComponent } from './times-view.component'
 import { FormsModule } from '@angular/forms'
 import { TimesRowComponent } from '@app/components/times-row/times-row.component'
 import { SungraphModule } from '@app/modules/sun-graph.module'
+import { KeepAliveIf } from '@app/directives/keep-alive/keep-alive-if.directive'
 
 
 @NgModule({
@@ -16,6 +17,7 @@ import { SungraphModule } from '@app/modules/sun-graph.module'
     TimesParametersComponent,
     TimesTableComponent,
     TimesRowComponent,
+    KeepAliveIf,
   ],
   imports: [
     CommonModule,

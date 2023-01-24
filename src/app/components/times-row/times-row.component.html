@@ -6,9 +6,8 @@
         </button>
     </td>
 </tr>
-<tr [hidden]="!isOpened">
-    <td colspan="6">
-        <!-- TODO: Keepalive -->
-        <sun-graph *ngIf="isOpened" [date]="date$.value" [animate]="false"></sun-graph>
+<tr>
+    <td colspan="6" [hidden]="!isOpened">
+        <sun-graph *keepAliveIf="isOpened" [date]="date$.value" [animate]="false"></sun-graph>
     </td>
 </tr>
