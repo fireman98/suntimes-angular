@@ -21,8 +21,8 @@
             <general-settings (close)="generalSettingsActive = false"></general-settings>
         </div>
         <div class="suntimes__modals__modal" [hidden]="!locationSettingsActive">
-            <location-settings [lng]="lng.value" [lat]="lat.value" (lngChange)="lng.next($event)"
-                (latChange)="lat.next($event)" (geolocate)="geolocate()"></location-settings>
+            <location-settings [lng]="lng.value" [lat]="lat.value" (lngChange)="setLng($event)"
+                (latChange)="setLat($event)" (geolocate)="geolocate()"></location-settings>
         </div>
     </div>
     <div>

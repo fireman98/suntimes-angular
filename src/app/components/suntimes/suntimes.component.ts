@@ -1,3 +1,6 @@
+import { SetLat, SetLng } from './../../stores/settings.actions'
+import { selectUseSkyEffect, selectLng, selectLat } from './../../stores/settings.reducer'
+import { rootReducer, RootState } from './../../stores/index'
 import { BehaviorSubject, combineLatest, map, Observable } from 'rxjs'
 import SunCalc, { GetSunPositionResult, GetTimesResult } from "suncalc"
 import { Component, OnInit, Output, EventEmitter, SimpleChange, SimpleChanges } from '@angular/core'
@@ -5,6 +8,8 @@ import { DateTime } from "luxon"
 import { formatYearMonthDayToISO } from "@app/utils/LuxonUtility"
 import { SkyEffect } from '@app/classes/SkyEffect'
 import strftime from "strftime"
+import { select, Store } from '@ngrx/store'
+import { loadFromLocalStorage } from '@app/stores/settings.actions'
 
 function radians_to_degrees (radians: number) {
   const pi = Math.PI
@@ -65,6 +70,18 @@ export class SuntimesComponent implements OnInit {
   lng = new BehaviorSubject(0)
   lat = new BehaviorSubject(0)
 
+  useSkyEffect$
+  lng$
+  lat$
+
+  setLat (val: number) {
+    this.store.dispatch(new SetLat(val))
+  }
+
+  setLng (val: number) {
+    this.store.dispatch(new SetLng(val))
+  }
+
   now = new BehaviorSubject<Date>(new Date())
   tickTask: NodeJS.Timer | undefined
   tickInterval
@@ -83,12 +100,26 @@ export class SuntimesComponent implements OnInit {
 
   styles
 
-  constructor() {
+  constructor(private store: Store<RootState>) {
 
-    //const settingsStore = useSettingsStore() TODO: store
-    //const { useSkyEffect, lng, lat } = storeToRefs(settingsStore)
+    this.useSkyEffect$ = this.store.pipe(select(selectUseSkyEffect))
+    this.lng$ = this.store.pipe(select(selectLng))
+    this.lat$ = this.store.pipe(select(selectLat))
 
-    //settingsStore.loadFromLocalStorage()
+    this.useSkyEffect$.subscribe(newVal => {
+      this.useSkyEffect.next(newVal)
+    })
+
+    this.lng$.subscribe(newVal => {
+      this.lng.next(newVal)
+    })
+
+    this.lat$.subscribe(newVal => {
+      this.lat.next(newVal)
+    })
+
+
+    this.store.dispatch(new loadFromLocalStorage())
 
     this.tickTask = undefined
     this.tickInterval = 250
@@ -269,8 +300,8 @@ export class SuntimesComponent implements OnInit {
   // Geolocate
   geolocate () {
     navigator.geolocation.getCurrentPosition((position) => {
-      this.lat.next(position.coords.latitude)
-      this.lng.next(position.coords.longitude)
+      this.store.dispatch(new SetLat(position.coords.latitude))
+      this.store.dispatch(new SetLng(position.coords.longitude))
     })
   }
 

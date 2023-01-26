@@ -18,6 +18,8 @@
     "@angular/platform-browser": "^14.2.0",
     "@angular/platform-browser-dynamic": "^14.2.0",
     "@angular/router": "^14.2.0",
+    "@ngrx/store": "^14.2.0",
+    "@ngrx/effects": "^14.2.0",
     "@fontsource/roboto": "^4.5.8",
     "@fortawesome/fontawesome-free": "^5.15.4",
     "axios": "^0.27.2",

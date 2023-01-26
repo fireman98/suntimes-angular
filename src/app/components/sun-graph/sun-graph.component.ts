@@ -4,6 +4,9 @@ import { ActiveElement, CategoryScale, Chart, Decimation, Filler, LinearScale, L
 import { getSunPathForDay } from '@app/classes/SuntimesUtility'
 import { debounce, formatTime } from '@app/helpers/General'
 import { BehaviorSubject, combineLatest, forkJoin, map } from 'rxjs'
+import { select, Store } from '@ngrx/store'
+import { RootState } from '@app/stores'
+import { selectLat, selectLng } from '@app/stores/settings.reducer'
 
 Chart.register(LinearScale, LineController, CategoryScale, PointElement, LineElement, Filler, Tooltip, Decimation)
 
@@ -34,10 +37,21 @@ export class SunGraphComponent implements OnInit {
   lng = new BehaviorSubject<number>(0)
   lat = new BehaviorSubject<number>(0)
 
-  constructor() {
-    // TODO
-    // const settingsStore = useSettingsStore()
-    // const { lng, lat } = storeToRefs(settingsStore)
+  lng$
+  lat$
+
+  constructor(private store: Store<RootState>) {
+    this.lng$ = this.store.pipe(select(selectLng))
+    this.lat$ = this.store.pipe(select(selectLat))
+
+
+    this.lng$.subscribe(newVal => {
+      this.lng.next(newVal)
+    })
+
+    this.lat$.subscribe(newVal => {
+      this.lat.next(newVal)
+    })
 
   }
 
