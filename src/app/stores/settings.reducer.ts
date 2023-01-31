@@ -1,5 +1,5 @@
-import { Action, createSelector } from '@ngrx/store'
-import { ActionTypes, SetLat, SetLng, SetUseSkyEffect } from './settings.actions'
+import { Action, createFeatureSelector, createSelector } from '@ngrx/store'
+import { ActionTypes, doneLoadFromLocalStorage, SetLat, SetLng, SetUseSkyEffect } from './settings.actions'
 import { RootState } from "./index"
 
 export interface SettingsState {
@@ -16,13 +16,11 @@ export const initialState: SettingsState = {
 
 export function settingsReducer (state = initialState, action: Action) {
     switch (action.type) {
-        case ActionTypes.SaveToLocalStorage:
-            return state
-
-        case ActionTypes.LoadFromLocalStorage:
-            return state
+        case ActionTypes.DoneLoadFromLocalStorage:
+            return (action as doneLoadFromLocalStorage).payload
 
         case ActionTypes.Reset:
+            console.log({ initialState })
             return initialState
 
         case ActionTypes.SetLat:
@@ -48,7 +46,7 @@ export function settingsReducer (state = initialState, action: Action) {
     }
 }
 
-export const selectSettings = (state: RootState) => state.settings
+export const selectSettings = createFeatureSelector<SettingsState>('settings')
 
 export const selectUseSkyEffect = createSelector(
     selectSettings,

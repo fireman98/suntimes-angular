@@ -1,3 +1,4 @@
+import ColumnsForHeadingsService from '@app/services/ColumnsForHeadingsService'
 import { TimesTableComponent } from './../../components/times-table/times-table.component'
 import { TimesParametersComponent } from './../../components/times-parameters/times-parameters.component'
 import { NgModule } from '@angular/core'
@@ -25,6 +26,9 @@ import { KeepAliveIf } from '@app/directives/keep-alive/keep-alive-if.directive'
     TimesViewRoutingModule,
     SungraphModule
 
+  ],
+  providers: [
+    ColumnsForHeadingsService
   ]
 })
 export class TimesViewModule { }

@@ -1,4 +1,7 @@
+import { RootState } from '@app/stores'
 import { Component } from '@angular/core'
+import { loadFromLocalStorage } from './stores/settings.actions'
+import { Store } from '@ngrx/store'
 
 @Component({
   selector: 'app-root',
@@ -10,11 +13,8 @@ export class AppComponent {
   sidebarActive = false
   routeClass = ""
 
-  constructor() {
-    // TODO
-    //const settingsStore = useSettingsStore()
-
-    //settingsStore.loadFromLocalStorage()
+  constructor(private store: Store<RootState>) {
+    this.store.dispatch(new loadFromLocalStorage())
 
     this.unfocusButtonIfnotKeyboard = this.unfocusButtonIfnotKeyboard.bind(this)
   }

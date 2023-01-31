@@ -6,6 +6,9 @@ import { SuntimesViewType } from "@app/interfaces/Suntimes"
 import { BehaviorSubject, combineLatest, map, Observable } from "rxjs"
 import SuntimesUtility from '@app/classes/SuntimesUtility'
 import { formatTime } from '@app/utils/LuxonUtility'
+import { select, Store } from '@ngrx/store'
+import { RootState } from '@app/stores'
+import { selectLat, selectLng } from '@app/stores/settings.reducer'
 
 
 @Injectable({
@@ -17,12 +20,22 @@ export default class ColumnsForHeadingsService {
     lng = new BehaviorSubject(0)
     lat = new BehaviorSubject(0)
 
-    constructor() {
-        /*
-        TODO
-          const settingsStore = useSettingsStore()
-           const { lng, lat } = storeToRefs(settingsStore)
-        */
+
+    lng$
+    lat$
+
+    constructor(private store: Store<RootState>) {
+        this.lng$ = this.store.pipe(select(selectLng))
+        this.lat$ = this.store.pipe(select(selectLat))
+
+
+        this.lng$.subscribe(newVal => {
+            this.lng.next(newVal)
+        })
+
+        this.lat$.subscribe(newVal => {
+            this.lat.next(newVal)
+        })
     }
 
     setup (headings: BehaviorSubject<string[]>, date: BehaviorSubject<DateTime>) {

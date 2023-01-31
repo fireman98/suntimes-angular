@@ -1,7 +1,7 @@
-import { SetLat, SetLng } from './../../stores/settings.actions'
+import { saveToLocalStorage, SetLat, SetLng } from './../../stores/settings.actions'
 import { selectUseSkyEffect, selectLng, selectLat } from './../../stores/settings.reducer'
 import { rootReducer, RootState } from './../../stores/index'
-import { BehaviorSubject, combineLatest, map, Observable } from 'rxjs'
+import { BehaviorSubject, combineLatest, map, Observable, startWith } from 'rxjs'
 import SunCalc, { GetSunPositionResult, GetTimesResult } from "suncalc"
 import { Component, OnInit, Output, EventEmitter, SimpleChange, SimpleChanges } from '@angular/core'
 import { DateTime } from "luxon"
@@ -193,9 +193,9 @@ export class SuntimesComponent implements OnInit {
       this._sunPosition = computeSunPosition(newVal)
     })
 
-    combineLatest([this.lng, this.lat]).pipe(map(() => {
-      //TODO: settingsStore.saveToLocalStorage()
-    }))
+    combineLatest([this.lng, this.lat]).subscribe(() => {
+      this.store.dispatch(new saveToLocalStorage())
+    })
 
     // Maybe observable or getter / setter
     this.skyEffect = new SkyEffect({})
@@ -261,6 +261,7 @@ export class SuntimesComponent implements OnInit {
     return this.skyEffect.getLinearGradient()
   }
 
+  // TODO: fix
   get foregroundColor () {
     if (!this.useSkyEffect.value)
       return "black"
