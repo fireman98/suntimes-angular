@@ -10,12 +10,16 @@ import { HeaderComponent } from './components/header/header.component'
 import { SidebarComponent } from './components/sidebar/sidebar.component'
 import { SettingsEffects } from './stores/settings.effects'
 import { EffectsModule } from '@ngrx/effects'
+import { LoadingComponent } from './components/loading/loading.component'
+import { ErrorComponent } from './components/error/error.component'
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
     SidebarComponent,
+    LoadingComponent,
+    ErrorComponent
   ],
   imports: [
     BrowserModule,

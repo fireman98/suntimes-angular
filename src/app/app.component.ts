@@ -2,6 +2,7 @@ import { RootState } from '@app/stores'
 import { Component } from '@angular/core'
 import { loadFromLocalStorage } from './stores/settings.actions'
 import { Store } from '@ngrx/store'
+import { Router, Event, NavigationStart, NavigationEnd, NavigationCancel, NavigationError } from '@angular/router'
 
 @Component({
   selector: 'app-root',
@@ -13,10 +14,30 @@ export class AppComponent {
   sidebarActive = false
   routeClass = ""
 
-  constructor(private store: Store<RootState>) {
+  showLoadingComponent = false
+  showErrorComponent = false
+
+  constructor(private store: Store<RootState>, private router: Router) {
     this.store.dispatch(new loadFromLocalStorage())
 
     this.unfocusButtonIfnotKeyboard = this.unfocusButtonIfnotKeyboard.bind(this)
+
+    this.router.events.subscribe((routerEvent: Event) => {
+      if (routerEvent instanceof NavigationStart) {
+        this.showLoadingComponent = true
+        this.showErrorComponent = false
+      }
+
+      if (routerEvent instanceof NavigationError) {
+        this.showErrorComponent = true
+      }
+
+      if (routerEvent instanceof NavigationEnd ||
+        routerEvent instanceof NavigationCancel ||
+        routerEvent instanceof NavigationError) {
+        this.showLoadingComponent = false
+      }
+    })
   }
 
   unfocusButtonIfnotKeyboard () {

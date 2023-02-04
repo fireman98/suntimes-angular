@@ -2,6 +2,8 @@
 
 <div class="content" [class]="routeClass" role="main">
   <div class="container">
+    <loading-component *ngIf="showLoadingComponent"></loading-component>
+    <error-component *ngIf="showErrorComponent"></error-component>
     <router-outlet></router-outlet>
   </div>
 </div>
