@@ -243,7 +243,7 @@ export class SuntimesComponent implements OnInit {
   _sunPositionRaw: GetSunPositionResult
   _sunPosition: SunPosition
 
-
+  // Getters are not cached
   get skyEffectUpdater () {
     if (!this.useSkyEffect.value)
       return
@@ -261,12 +261,11 @@ export class SuntimesComponent implements OnInit {
     return this.skyEffect.getLinearGradient()
   }
 
-  // TODO: fix
   get foregroundColor () {
     if (!this.useSkyEffect.value)
       return "black"
 
-    return this._sunPosition.altitude || 0 > 10 ? "black" : "white"
+    return this._sunPosition.altitude > 10 ? "black" : "white"
   }
 
   get styleForWrapper () {

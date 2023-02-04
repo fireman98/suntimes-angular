@@ -20,7 +20,6 @@ export class SidebarComponent implements OnInit {
     },
   ]
 
-  // TODO: active link color
   constructor(private router: Router) {
   }
 
@@ -37,7 +36,7 @@ export class SidebarComponent implements OnInit {
   }
 
   get routes () {
-    return this.router.config
+    return this.router.config.filter((route) => route.path !== '')
   }
 
   ngOnInit (): void {

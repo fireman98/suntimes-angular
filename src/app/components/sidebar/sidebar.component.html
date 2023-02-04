@@ -3,7 +3,7 @@
         <div>
             <ul>
                 <li *ngFor="let link of routes" (click)="sidebaroff.emit()">
-                    <a [routerLink]="[link.path]" active-class="active">{{
+                    <a [routerLink]="[link.path]" routerLinkActive="router-link-exact-active">{{
                         getTitle(link)
                         }}</a>
                 </li>

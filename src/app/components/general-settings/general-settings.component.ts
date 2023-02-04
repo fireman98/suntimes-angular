@@ -19,6 +19,10 @@ export class GeneralSettingsComponent implements OnInit {
     this.store.dispatch(new SetUseSkyEffect(val))
   }
 
+  onUseSkyEffectChange (event: Event) {
+    this.setUseSkyEffect((event.target as HTMLInputElement).checked)
+  }
+
   constructor(private store: Store<RootState>) {
     this.useSkyEffect$ = this.store.pipe(select(selectUseSkyEffect))
   }
